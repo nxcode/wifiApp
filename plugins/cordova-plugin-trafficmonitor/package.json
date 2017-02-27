@@ -1,0 +1,29 @@
+{
+  "name": "cordova-plugin-trafficmonitor",
+  "version": "1.1.1",
+  "description": "Cordova plugin to operate and get TrafficStats of Android",
+  "cordova": {
+    "id": "cordova-plugin-trafficmonitor",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maneskul/cordova-plugin-trafficmonitor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maneskul/cordova-plugin-trafficmonitor/issues"
+  },
+  "keywords": [
+    "traffic",
+    "ecosystem:cordova",
+    "network",
+    "trafficstats"
+  ],
+  "author": {
+    "name": "Guilherme Maneskul",
+    "email": "contato@wootsistemas.com.br"
+  },
+  "license": "MIT"
+}

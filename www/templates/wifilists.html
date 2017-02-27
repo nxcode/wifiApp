@@ -1,0 +1,25 @@
+<ion-view view-title="Wifi List">
+    <ion-content class="center">
+    <div class="item item-divider">
+      		Available Wifi List
+    </div>
+     <div ng-hide="(wifiList).length" style="text-align: center;">
+          <br><br>
+          Detecting WiFi!
+          <br><br>
+          <ion-spinner class="spinner-energized"></ion-spinner>
+          <br><br>
+     </div>
+     
+        <ion-list>
+          <ion-item class="item-icon-right" ng-repeat="wifi in wifiList">
+            <h2 ng-click="connectWifi(wifi)" class="ion-wifi">
+              {{wifi.ssid}}
+            </h2>
+          </ion-item>
+        </ion-list>
+
+        <button class="col button button-energized" ng-click="getList()">Refresh WiFi List</button>
+
+    </ion-content>
+</ion-view>
