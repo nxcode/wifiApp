@@ -89,41 +89,18 @@ extends CordovaPlugin {
         Log.i(LOGTAG, ACTION_LIST_TRAFFIC);
 		JSONArray jsons = new JSONArray();
 		
-		PackageManager pm = this.cordova.getActivity().getPackageManager();
-        List<ApplicationInfo> packages = pm.getInstalledApplications(0);
-
-        for (ApplicationInfo packageInfo : packages) {
-            // get the UID for the selected app
+        double received = (double) TrafficStats.getTotalRxBytes() / (1024 * 1024);
+        double send = (double) TrafficStats.getTotalTxBytes() / (1024 * 1024);
+        double total = received + send;
 			
-            int UID = packageInfo.uid;
-            String package_name = packageInfo.packageName;
-            ApplicationInfo app = null;
-            try {
-                app = pm.getApplicationInfo(package_name, 0);
-            } catch (PackageManager.NameNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            String name = (String) pm.getApplicationLabel(app);
-            double received = (double) TrafficStats.getUidRxBytes(UID) / (1024 * 1024);
-            double send = (double) TrafficStats.getUidTxBytes(UID) / (1024 * 1024);
-            double total = received + send;
+		JSONObject json = new JSONObject();
+		json.put("uid", UID);
+		json.put("name", name);
+		json.put("received", received);
+		json.put("send", send);
+		json.put("total", total);
+		jsons.put((Object)json);
 			
-			if (total > 0) {
-				try {
-					JSONObject json = new JSONObject();
-					json.put("uid", UID);
-					json.put("name", name);
-					json.put("received", received);
-					json.put("send", send);
-					json.put("total", total);
-					jsons.put((Object)json);
-				} catch ( Exception e ) { 
-					e.printStackTrace(); 
-				}
-			}
-        }
-		
         callbackContext.success(jsons);
         return null;
     }
