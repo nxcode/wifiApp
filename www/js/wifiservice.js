@@ -64,9 +64,36 @@ angular.module('WifiServices', [])
       alert("Network Failure: " + e);
     }
 
+        
     function scanNetwork(){
-      WifiWizard.startScan(successNetwork, failNetwork);
+     var permissions = cordova.plugins.permissions;
+     permissions.hasPermission(permissions.ACCESS_COARSE_LOCATION, 
+        function (status) {
+          if(!status.hasPermission) {
+            var errorCallback = function() {
+              alert('location permission is not granted');
+            }
+            permissions.requestPermission(
+              permissions.ACCESS_COARSE_LOCATION,
+              function(status) {
+                if(!status.hasPermission) {  
+                    errorCallback();
+                } else {
+                    WifiWizard.startScan(successNetwork, failNetwork);
+                }
+              },
+              errorCallback
+            );
+          }
+          else {
+            WifiWizard.startScan(successNetwork, failNetwork);
+          }
+        }
+        , null);
+
+      
     }
+
 
     window.setTimeout(function(){
       scanNetwork();
